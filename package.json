@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "heroku-postbuild": "yarn build"
   },
   "devDependencies": {
     "axios": "^0.18.0",
