@@ -9,7 +9,8 @@ export default class InputForm extends React.Component {
     render() {
         return (this.props !== undefined) ? (
             <div>
-                <p>{this.props.output}</p>
+                <p>{this.props.word}</p>
+                <Wikipedia output={this.props.output} />
             </div>
         ) : "";
     }
