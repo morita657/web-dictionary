@@ -11,21 +11,11 @@ Imagine you are Japanese who wants to talk with English speakers. However, somet
 
 ### Usage
 Access and play [here](https://damp-sierra-86852.herokuapp.com/)
-![alt text](https://github.com/morita657/web-dictionary/dictionary-image.png)
+![screenshot](dictionary-image.png)
 ### How to play on your machine
 ```yarn```
 To run the application local
 ```yarn dev```
-
-// to develop
-"dev": "next", 
-// to prepare for production
-"build": "next build",
-// to serve
-"start": "next start"
-// to pre-render to static files
-"next export"
-
 
 ### Third Parties
 [Next](https://github.com/zeit/next.js/)
