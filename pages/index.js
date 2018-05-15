@@ -1,5 +1,5 @@
-import React from 'react'
-import Head from 'next/head'
+import React from 'react';
+import Head from 'next/head';
 import axios from 'axios';
 import InputForm from './InputForm';
 import TranslatedWord from './TranslatedWord';
@@ -9,7 +9,8 @@ export default class Index extends React.Component {
         super(props);
         this.state = {
             word: "",
-            output: ""
+            output: "",
+            isPending: true,
         }
         this.translateWord = this.translateWord.bind(this);
         this.getSummary = this.getSummary.bind(this);
@@ -17,9 +18,8 @@ export default class Index extends React.Component {
     translateWord(word) {
         return axios.get("https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20180514T051146Z.a04fca93eb450a49.3deea58109584e0a8ed9480e6519d9952410b609&lang=en&text=" + word)
             .then(response => {
-                // console.log('response', response.data["text"], response.data, response);
                 const newState = this.setState({ word: response.data["text"] });
-                this.getSummary(response.data["text"])
+                this.getSummary(response.data["text"]);
                 return newState;
             });
     }
@@ -36,7 +36,7 @@ export default class Index extends React.Component {
         }).then(response => {
             console.log('json', response.data.query.pages[Object.keys(response.data.query.pages)[0]]["extract"]);
             const output = response.data.query.pages[Object.keys(response.data.query.pages)[0]]["extract"];
-            const newState = this.setState({ output });
+            const newState = this.setState({ output, isPending: false });
             return newState;
         }).catch(error => {
             console.log('There is a something wrong... ', error);
@@ -49,6 +49,7 @@ export default class Index extends React.Component {
                     <span>Dictionary</span>
                 </Head>
                 <InputForm translateWord={this.translateWord} />
+                <isLoading isPending={this.state.isPending} />
                 <TranslatedWord word={this.state.word} output={this.state.output} />
             </div>
         )
