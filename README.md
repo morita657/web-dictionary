@@ -7,7 +7,7 @@ This application is mostly made of JavaScript using Next and React
 
 ### Usage
 Access and play [here](https://damp-sierra-86852.herokuapp.com/)
-![alt text](https://github.com/morita657/web-dictionary)
+![alt text](https://github.com/morita657/web-dictionary/dictionary-image.png)
 ### How to play on your machine
 ```yarn```
 To run the application local
