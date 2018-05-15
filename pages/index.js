@@ -8,17 +8,40 @@ export default class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            word: ""
+            output: ""
         }
         this.translateWord = this.translateWord.bind(this);
+        this.getSummary = this.getSummary.bind(this);
     }
     translateWord(word) {
         return axios.get("https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20180514T051146Z.a04fca93eb450a49.3deea58109584e0a8ed9480e6519d9952410b609&lang=en&text=" + word)
             .then(response => {
                 console.log('response', response.data["text"], response.data, response);
-                const newState = this.setState({ output: response.data["text"] });
-                return { output: response.data["text"] }
+                this.getSummary(response.data["text"])
             });
+    }
+    getSummary(word) {
+        const title = encodeURIComponent(word);
+        axios.get(`https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=${encodeURIComponent(word)}`, {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            },
+            proxy: {
+                host: '104.236.174.88',
+                port: 8080
+            }
+        }).then(response => {
+            console.log('json', response.data.query.pages[Object.keys(response.data.query.pages)[0]]["extract"]);
+            const output = response.data.query.pages[Object.keys(response.data.query.pages)[0]]["extract"];
+            // const output = { summary: response.data.query.pages[Object.keys(response.data.query.pages)[0]]["extract"] }
+            // const summary = this.setState({ summary: response.data.query.pages[Object.keys(response.data.query.pages)[0]]["extract"] })
+            // return summary;
+            const newState = this.setState({ output });
+            return newState;
+            // return { output };
+        }).catch(error => {
+            console.log('There is a something wrong... ', error);
+        })
     }
     render() {
         return (
