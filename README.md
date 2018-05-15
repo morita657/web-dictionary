@@ -35,5 +35,4 @@ To run the application local
 [Yandex](https://yandex.com/)
 [Wikipedia](https://www.mediawiki.org/wiki/API:Main_page)
 [Heroku](https://dashboard.heroku.com/login)
-[Material Design](https://material.io/design/)
-
+[Material-UI](https://material-ui-next.com/)
