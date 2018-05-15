@@ -8,6 +8,7 @@ export default class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            word: "",
             output: ""
         }
         this.translateWord = this.translateWord.bind(this);
@@ -16,8 +17,10 @@ export default class Index extends React.Component {
     translateWord(word) {
         return axios.get("https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20180514T051146Z.a04fca93eb450a49.3deea58109584e0a8ed9480e6519d9952410b609&lang=en&text=" + word)
             .then(response => {
-                console.log('response', response.data["text"], response.data, response);
+                // console.log('response', response.data["text"], response.data, response);
+                const newState = this.setState({ word: response.data["text"] });
                 this.getSummary(response.data["text"])
+                return newState;
             });
     }
     getSummary(word) {
@@ -33,12 +36,8 @@ export default class Index extends React.Component {
         }).then(response => {
             console.log('json', response.data.query.pages[Object.keys(response.data.query.pages)[0]]["extract"]);
             const output = response.data.query.pages[Object.keys(response.data.query.pages)[0]]["extract"];
-            // const output = { summary: response.data.query.pages[Object.keys(response.data.query.pages)[0]]["extract"] }
-            // const summary = this.setState({ summary: response.data.query.pages[Object.keys(response.data.query.pages)[0]]["extract"] })
-            // return summary;
             const newState = this.setState({ output });
             return newState;
-            // return { output };
         }).catch(error => {
             console.log('There is a something wrong... ', error);
         })
@@ -50,7 +49,7 @@ export default class Index extends React.Component {
                     <span>Dictionary</span>
                 </Head>
                 <InputForm translateWord={this.translateWord} />
-                <TranslatedWord output={this.state.output} />
+                <TranslatedWord word={this.state.word} output={this.state.output} />
             </div>
         )
     }
