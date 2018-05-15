@@ -14,6 +14,7 @@ export default class InputForm extends React.Component {
         const newState = this.setState({ word: e.target.value })
         return newState;
     }
+
     render() {
         return (
             <div>
