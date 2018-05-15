@@ -34,7 +34,6 @@ export default class Index extends React.Component {
                 port: 8080
             }
         }).then(response => {
-            console.log('json', response.data.query.pages[Object.keys(response.data.query.pages)[0]]["extract"]);
             const output = response.data.query.pages[Object.keys(response.data.query.pages)[0]]["extract"];
             const newState = this.setState({ output, isPending: false });
             return newState;

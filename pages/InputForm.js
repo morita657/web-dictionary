@@ -15,7 +15,6 @@ export default class InputForm extends React.Component {
         return newState;
     }
     render() {
-        console.log(this.props, this.state.word);
         return (
             <div>
                 <TextField
