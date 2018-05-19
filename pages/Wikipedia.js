@@ -4,11 +4,10 @@ export default class Wikipedia extends React.Component {
     constructor(props) {
         super(props);
     }
+    get createMarkup() {
+        return { __html: this.props.output };
+    }
     render() {
-        return (
-            <div>
-                {this.props.output}
-            </div>
-        )
+        return <div dangerouslySetInnerHTML={this.createMarkup} />;
     }
 }
