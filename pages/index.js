@@ -25,16 +25,12 @@ export default class Index extends React.Component {
     }
     getSummary(word) {
         const title = encodeURIComponent(word);
-        axios.get(`https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=${encodeURIComponent(word)}`, {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-            },
-            proxy: {
-                host: '104.236.174.88',
-                port: 8080
-            }
-        }).then(response => {
-            const output = response.data.query.pages[Object.keys(response.data.query.pages)[0]]["extract"];
+        fetch(`https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&origin=*&titles=${encodeURIComponent(word)}`)
+            .then(response => {
+                this.showLoading();
+                return response.json();
+            }).then(data => {
+                const output = data.query.pages[Object.keys(data.query.pages)[0]]["extract"];
             const newState = this.setState({ output, isPending: false });
             return newState;
         }).catch(error => {
