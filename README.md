@@ -1,8 +1,8 @@
 # Dicionary
+This application provides you to search English information based on the given Japanese word.
 
 ### What this application does
 This is one of the solo project at Code Chrysalis.
-This application provides you to search English information based on the given Japanese word.
 You can get the meaning of the word based on Wikipedia.
 This application is mostly made of JavaScript using Next and React.
 
